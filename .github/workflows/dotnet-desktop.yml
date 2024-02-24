@@ -26,7 +26,7 @@ jobs:
       run: msbuild AdventureWorks/AdventureWorks.sqlproj -t:rebuild -verbosity:diag -property:Configuration=Release
 
     - name: Zip Artifacts
-      run: Compress-Archive -Path **\bin\$(BuildConfiguration)\** -DestinationPath publish.zip
+      run: Compress-Archive -Path **\bin\Release\** -DestinationPath publish.zip
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
