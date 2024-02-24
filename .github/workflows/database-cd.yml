@@ -16,7 +16,7 @@ jobs:
     - name: Download DACPAC Artifact
       uses: actions/download-artifact@v2
       with:
-        name: dacpac-artifact # Asegúrate de que este nombre coincida con el nombre del artefacto en el flujo de trabajo de CI
+        name: published-app
         
     - name: List files
       run: |
