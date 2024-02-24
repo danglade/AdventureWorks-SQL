@@ -19,6 +19,9 @@ jobs:
       with:
         dotnet-version: '6.0.x' # Especifica tu versión de .NET
 
+    - name: Add msbuild to PATH
+      uses: microsoft/setup-msbuild@v2
+
     - name: Build app for release
       run: msbuild AdventureWorks\AdventureWorks.csproj -t:rebuild -verbosity:diag -property:Configuration=Release
 
