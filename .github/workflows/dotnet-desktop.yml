@@ -23,7 +23,7 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: Build app for release
-      run: msbuild AdventureWorks\AdventureWorks.csproj -t:rebuild -verbosity:diag -property:Configuration=Release
+      run: msbuild AdventureWorks/AdventureWorks.csproj -t:rebuild -verbosity:diag -property:Configuration=Release
 
 
     - name: Zip Artifacts
