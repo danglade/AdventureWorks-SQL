@@ -1,4 +1,4 @@
-name: Build .NET Application
+name: Build SQL Package
 
 on:
   push:
