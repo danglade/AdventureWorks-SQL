@@ -19,11 +19,9 @@ jobs:
       with:
         dotnet-version: '6.0.x' # Especifica tu versión de .NET
 
-    - name: Restore dependencies
-      run: dotnet restore AdventureWorks.sln
+    - name: Build app for release
+      run: msbuild AdventureWorks\AdventureWorks.csproj -t:rebuild -verbosity:diag -property:Configuration=Release
 
-    - name: Build
-      run: dotnet build AdventureWorks.sln --configuration Release --output publish/
 
     - name: Zip Artifacts
       run: Compress-Archive -Path publish/* -DestinationPath publish.zip
