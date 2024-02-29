@@ -1,9 +1,11 @@
 name: CD - DACPAC Deployment
 
 on:
-  workflow_dispatch:
-  release:
-    types: [created]
+  workflow_run:
+    workflows: ["Build SQL Package"]
+    branches: [master]
+    types:
+      - completed
     
 jobs:
   deploy-dacpac:
