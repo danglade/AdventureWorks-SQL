@@ -43,7 +43,7 @@ jobs:
           sqlpackage.exe /Action:Publish /SourceFile:"AdventureWorks/bin/Release/YourDacpacFile.dacpac" /TargetConnectionString:"Your_DEV_Database_Connection_String" /p:BlockOnPossibleDataLoss=false
 
   deploy-qa:
-    needs: build
+    needs: deploy-dev
     runs-on: self-hosted
     environment: QA
     steps:
