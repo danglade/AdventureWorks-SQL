@@ -1,8 +1,8 @@
-name: CD - DACPAC Deployment
+name: AdventureWorks-CD
 
 on:
   workflow_run:
-    workflows: ["Build SQL Package"]
+    workflows: ["AdventureWorks-CI"]
     branches: [master]
     types:
       - completed
