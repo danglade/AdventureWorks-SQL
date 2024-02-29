@@ -1,0 +1,57 @@
+name: AdventureWorks CI/CD
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build app for release
+        run: msbuild AdventureWorks/AdventureWorks.sqlproj -t:rebuild -verbosity:diag -property:Configuration=Release
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: database-build
+          path: AdventureWorks/bin/Release/
+
+  deploy-dev:
+    needs: build
+    runs-on: self-hosted
+    environment: DEV
+    steps:
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: database-build
+
+      - name: Deploy to DEV
+        run: |
+          sqlpackage.exe /Action:Publish /SourceFile:"AdventureWorks/bin/Release/YourDacpacFile.dacpac" /TargetConnectionString:"Your_DEV_Database_Connection_String" /p:BlockOnPossibleDataLoss=false
+
+  deploy-qa:
+    needs: build
+    runs-on: self-hosted
+    environment: QA
+    steps:
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: database-build
+
+      - name: Deploy to QA
+        run: |
+          sqlpackage.exe /Action:Publish /SourceFile:"AdventureWorks/bin/Release/YourDacpacFile.dacpac" /TargetConnectionString:"Your_QA_Database_Connection_String" /p:BlockOnPossibleDataLoss=false
