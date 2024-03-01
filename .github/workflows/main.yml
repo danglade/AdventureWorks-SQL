@@ -40,7 +40,7 @@ jobs:
 
       - name: Deploy to DEV
         run: |
-          sqlpackage /Action:Publish /SourceFile:"AdventureWorks/bin/Release/AdventureWorks.dacpac" /TargetConnectionString:"Server=${{ secrets.HOSTNAME }};Database=${{ secrets.DATABASE }};User Id=${{ secrets.USERNAME }};Password=${{ secrets.PASSWORD }};" /p:BlockOnPossibleDataLoss=false
+          sqlpackage /Action:Publish /SourceFile:"AdventureWorks/bin/Release/AdventureWorks.dacpac" /TargetConnectionString:"Server=${{ secrets.HOSTNAME }};Database=${{ secrets.DATABASE }};User Id=${{ secrets.USERNAME }};Password=${{ secrets.PASSWORD }};TrustServerCertificate=True" /p:BlockOnPossibleDataLoss=false
 
   deploy-qa:
     needs: deploy-dev
@@ -54,7 +54,7 @@ jobs:
 
       - name: Deploy to QA
         run: |
-          sqlpackage /Action:Publish /SourceFile:"AdventureWorks/bin/Release/AdventureWorks.dacpac" /TargetConnectionString:"Server=${{ secrets.HOSTNAME }};Database=${{ secrets.DATABASE }};User Id=${{ secrets.USERNAME }};Password=${{ secrets.PASSWORD }};" /p:BlockOnPossibleDataLoss=false
+          sqlpackage /Action:Publish /SourceFile:"AdventureWorks/bin/Release/AdventureWorks.dacpac" /TargetConnectionString:"Server=${{ secrets.HOSTNAME }};Database=${{ secrets.DATABASE }};User Id=${{ secrets.USERNAME }};Password=${{ secrets.PASSWORD }};TrustServerCertificate=True" /p:BlockOnPossibleDataLoss=false
 
 
 
