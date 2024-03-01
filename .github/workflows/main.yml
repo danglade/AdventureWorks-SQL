@@ -56,4 +56,6 @@ jobs:
         run: |
           sqlpackage /Action:Publish /SourceFile:"AdventureWorks/bin/Release/YourDacpacFile.dacpac" /TargetConnectionString:"Your_QA_Database_Connection_String" /p:BlockOnPossibleDataLoss=false
 
+
+
           
