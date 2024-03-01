@@ -28,7 +28,7 @@ jobs:
           name: database-build
           path: AdventureWorks/bin/Release/
 
-  deploy-dev:
+  DEV:
     needs: build
     runs-on: self-hosted
     environment: DEV
@@ -42,8 +42,8 @@ jobs:
         run: |
           sqlpackage /Action:Publish /SourceFile:"AdventureWorks/bin/Release/AdventureWorks.dacpac" /TargetConnectionString:"Server=${{ secrets.HOSTNAME }};Database=${{ secrets.DATABASE }};User Id=${{ secrets.USERNAME }};Password=${{ secrets.PASSWORD }};TrustServerCertificate=True" /p:BlockOnPossibleDataLoss=false
 
-  deploy-qa:
-    needs: deploy-dev
+  QA:
+    needs: DEV
     runs-on: self-hosted
     environment: QA
     steps:
