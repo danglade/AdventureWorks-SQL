@@ -57,6 +57,21 @@ jobs:
           sqlpackage /Action:Publish /SourceFile:"AdventureWorks/bin/Release/AdventureWorks.dacpac" /TargetConnectionString:"Server=${{ secrets.HOSTNAME }};Database=${{ secrets.DATABASE }};User Id=${{ secrets.USERNAME }};Password=${{ secrets.PASSWORD }};TrustServerCertificate=True" /p:BlockOnPossibleDataLoss=false
 
 
+  PRODUCTION:
+    needs: QA
+    runs-on: self-hosted
+    environment: PRODUCTION
+    steps:
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: database-build
+
+      - name: Deploy to Production
+        run: |
+          sqlpackage /Action:Publish /SourceFile:"AdventureWorks/bin/Release/AdventureWorks.dacpac" /TargetConnectionString:"Server=${{ secrets.HOSTNAME }};Database=${{ secrets.DATABASE }};User Id=${{ secrets.USERNAME }};Password=${{ secrets.PASSWORD }};TrustServerCertificate=True" /p:BlockOnPossibleDataLoss=false
+
+
 
           
 
